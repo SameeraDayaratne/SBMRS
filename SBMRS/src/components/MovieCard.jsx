@@ -1,13 +1,21 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
+import {useNavigate} from 'react-router-dom'
 
 function MovieCard({ imgSrc, ...props }) {
+  const navigate = useNavigate();
+
+  function handleNavigate(){
+    navigate('/movies');
+  }
+
   return (
     <div>
       <div
         {...props}
-        className="relative max-w-[180px] max-h-[260px] overflow-hidden  shadow-lg group"
+        className="relative max-w-[180px] max-h-[260px] overflow-hidden  shadow-lg group cursor-pointer"
+        onClick={handleNavigate}
       >
         <img
           src={imgSrc}
