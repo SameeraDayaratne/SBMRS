@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  background-color : #000300;   
+  background-color : #000300; 
+  /* padding-top: 64px ; */
 }
 
 @layer base {

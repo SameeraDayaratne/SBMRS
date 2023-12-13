@@ -23,16 +23,16 @@ function Main(props) {
     } , [])
     
   return (
-    <div className="mt-14 max-w-5xl mx-auto">
+    <div className="mt-14 max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto">
         <div>
             <h2 className="text-white font-bold text-xl">Most Popular</h2>
             <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-[#ff5100]"></hr>
         </div>
       
-        {isLoading && <div className="grid md:grid-cols-5 gap-8 items-center place-items-center justify-center my-8">
+        {isLoading && <div className="grid sm:grid-cols-4  md:grid-cols-5 gap-8 items-center place-items-center justify-center my-8">
             <MovieCardSkeleton cards={15}/>
         </div> }
-        {!isLoading && <div className="grid md:grid-cols-5 gap-8 items-center place-items-center justify-center my-8">
+        {!isLoading && <div className="grid  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 sm:gap-y-8 sm:gap-0 gap-8 items-center place-items-center justify-center my-8">
             <MovieCard imgSrc={ex} />
         <MovieCard imgSrc={a} />
         <MovieCard imgSrc={s} />

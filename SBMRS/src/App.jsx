@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import Navbar from "./components/Navbar";
 import TV from "./pages/TV";
+import MovieDetails from "./pages/MovieDetails";
 
 const router = createBrowserRouter([
   {path: '/' ,
@@ -13,7 +14,8 @@ const router = createBrowserRouter([
    children : [
     {path: '/' , element : <Home />},
     {path: '/movies' , element : <Movies />},
-    {path: '/tv' , element : <TV />}
+    {path: '/tv' , element : <TV />},
+    {path: '/movies/id' , element : <MovieDetails />},
    ]
   }
  

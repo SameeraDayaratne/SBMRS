@@ -37,7 +37,7 @@ function Navbar(props) {
     return (
         <>
         <div className={navClass}>
-            <h1 className='w-full text-3xl font-bold text-[#ff5100]  '>TMRS</h1>
+            <h1 className='w-full text-3xl font-bold text-[#ff5100] '>TMRS</h1>
             <ul className=' hidden md:flex md:items-center'>
                 
             <li className={liClass}><NavLink to='/' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Home</NavLink></li> 

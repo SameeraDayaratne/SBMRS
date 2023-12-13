@@ -8,7 +8,7 @@ function Home(props) {
   return (
     <div>
       <div className="font-poppins">
-        <Navbar />
+        
         <Hero />
         <Main />
       </div>

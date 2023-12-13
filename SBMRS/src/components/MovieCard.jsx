@@ -7,14 +7,14 @@ function MovieCard({ imgSrc, ...props }) {
   const navigate = useNavigate();
 
   function handleNavigate(){
-    navigate('/movies');
+    navigate('/movies/id');
   }
 
   return (
     <div>
       <div
         {...props}
-        className="relative max-w-[180px] max-h-[260px] overflow-hidden  shadow-lg group cursor-pointer"
+        className="relative sm:max-w-[180px] sm:max-h-[260px] overflow-hidden  shadow-lg group cursor-pointer"
         onClick={handleNavigate}
       >
         <img
