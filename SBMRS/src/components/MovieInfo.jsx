@@ -5,34 +5,45 @@ import s from "../assets/2.jpg";
 function MovieInfo(props) {
   return (
     <div className="text-white relative ">
-      <div className="w-full h-screen">
-        <img className="w-full h-screen object-cover " src={back} alt="" />
+      <div className="w-full h-screen bg-white z-50">
+        
+        <img className="w-full h-screen object-cover  " src={back} alt="" />
+        <div className="absolute h-screen w-full top-0 left-0 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="bg-black/90 w-full h-screen absolute top-0 left-0" />
       </div>
 
       <div className="absolute top-0  pt-24 w-[80%] left-0 right-0 mx-auto">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 w-full gap-3 ">
-          <div className=" sm:max-w-[300px] place-self-center sm:place-self-start md:place-self-start sm:max-h-[450px] overflow-hidden  shadow-lg group ">
+        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full gap-3 ">
+          <div className="md:col-span-1 lg:col-span-1 sm:max-w-[300px] place-self-center sm:place-self-start md:place-self-start sm:h-[450px] overflow-hidden  shadow-lg group ">
             <img
               src={s}
               alt=""
-              className="block transition-transform group-hover:scale-110 duration-200 object-cover"
+              className="block  object-cover"
             />
           </div>
-          <div className="md:col-span-2 flex flex-col">
-            <h3>Trolls Band Together (2023)</h3>
-            <h3>There are some new trolls on the block.</h3>
+          <div className="md:col-span-1 lg:col-span-2 flex flex-col gap-2 ">
+            <h3 className="font-bold text-3xl">Trolls Band Together (2023)</h3>
+            <h3 className="text-lg italic">There are some new trolls on the block.</h3>
             <div className="flex gap-3">
-              <h3>hello</h3>
-              <h3>hello</h3>
-              <h3>hello</h3>
-              <h3>hello</h3>
+                <div className=" py-0.5 px-2 rounded-lg text-white text-[12px] bg-[#ff5100]">
+                    <h3 >hello</h3>
+                </div>
+                <div className=" py-0.5 px-2 rounded-lg text-white text-[12px] bg-[#ff5100]">
+                    <h3 >hello</h3>
+                </div>
+                <div className=" py-0.5 px-2 rounded-lg text-white text-[12px] bg-[#ff5100]">
+                    <h3 >hello</h3>
+                </div>
+                <div className=" py-0.5 px-2 rounded-lg text-white text-[12px] bg-[#ff5100]">
+                    <h3 >hello</h3>
+                </div>
+              
             </div>
             <div className="flex gap-3">
               <h3>hello</h3>
               <h3>hello</h3>
             </div>
-            <h3>Overview</h3>
+            <h3 className="font-semibold text-2xl">Overview</h3>
             <h3>
               When Branchs brother, Floyd, is kidnapped for his musical talents
               by a pair of nefarious pop-star villains, Branch and Poppy embark
@@ -40,25 +51,22 @@ function MovieInfo(props) {
               and rescue Floyd from a fate even worse than pop-culture
               obscurity.
             </h3>
-            <div className="flex gap-3">
+            <div className="flex gap-3 mt-6 mb-2">
               <h3>Status: Released</h3>
               <h3>Release Date: Oct 12, 2023</h3>
               <h3>Runtime: 1h 32m</h3>
             </div>
-            <h3>Director: Walt Dohrn </h3>
-            <h3>Writer: Elizabeth Tippet</h3>
+            <hr className="h-px  bg-gray-200 border-0 dark:bg-[#ff5100]/30"></hr>
+            <h3 className="my-2">Director: Walt Dohrn </h3>
+            <hr className="h-px  bg-gray-200 border-0 dark:bg-[#ff5100]/30"></hr>
+            <h3 className="my-2">Writer: Elizabeth Tippet</h3>
+            <hr className="h-px  bg-gray-200 border-0 dark:bg-[#ff5100]/30"></hr>
           </div>
 
           <h3>hello</h3>
         </div>
 
-        {/* <p className='uppercase md:text-6xl sm:text-5xl text-4xl font-bold md:py-6'>The Movie Rating Systemsssss</p>
-            <p className='md:text-2xl sm:text-xl text-sm '>Capturing the Heartbeats of Cinema</p>
-            <div className='flex justify-center items-center'>
-                <p className='md:text-2xl sm:text-xl text-sm font-bold'> Your</p>
-               
-            </div>
-            <button className='bg-[#ff5100] w-[150px] rounded-full mx-auto py-2 font-bold mt-3 hover:bg-[#c63600]'>Get Started</button> */}
+        
       </div>
     </div>
   );
