@@ -2,13 +2,19 @@
 import React from 'react';
 import { useState } from 'react';
 import { AiOutlineClose , AiOutlineMenu } from 'react-icons/ai'
-import { Outlet , NavLink} from 'react-router-dom'
+import { Outlet , NavLink ,useNavigate} from 'react-router-dom'
 
 
 function Navbar(props) {
 
     const [nav, setNav] = useState(false);
     const [isScroll , setIsScroll] = useState(false);
+
+    const navigate = useNavigate();
+
+    function handleSignUp(){
+        navigate('signup');
+    }
 
     function setNavFixed(){
         if(window.scrollY > 50){
@@ -42,10 +48,10 @@ function Navbar(props) {
                 
             <li className={liClass}><NavLink to='/' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Home</NavLink></li> 
                 <li className={liClass}><NavLink to='/movies' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Movies</NavLink></li>        
-                <li className={liClass}><NavLink to='/tv' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >TV</NavLink></li>
-                <li className={liClass}>Home</li>
+                <li className={liClass}><NavLink to='/login' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Login</NavLink></li>
+                {/* <li className={liClass}>Login</li> */}
                 
-                <li className='p-4'><button className='bg-[#ff5100]  rounded-md py-1 w-[80px]   hover:bg-[#c63600]'>Sign Up</button></li>
+                <li className='p-4'><button onClick={handleSignUp} className='bg-[#ff5100]  rounded-md py-1 w-[80px]   hover:bg-[#c63600]'>Sign Up</button></li>
             </ul>
             <div onClick={handleNav} className='block md:hidden'>
                 {!nav ? <AiOutlineClose size={20}  /> : <AiOutlineMenu size={20} />}

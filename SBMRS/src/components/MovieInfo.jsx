@@ -1,19 +1,16 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
-import back from "../assets/back.jpg";
+import MoviePoster from "./MoviePoster";
+
 import s from "../assets/2.jpg";
 
 function MovieInfo(props) {
   return (
     <div className="text-white relative ">
-      <div className="w-full h-screen bg-white z-50">
-        
-        <img className="w-full h-screen object-cover  " src={back} alt="" />
-        <div className="absolute h-screen w-full top-0 left-0 bg-gradient-to-t from-black/80 to-transparent" />
-        <div className="bg-black/90 w-full h-screen absolute top-0 left-0" />
-      </div>
+      <MoviePoster />
 
       <div className="absolute top-0  pt-24 w-[80%] left-0 right-0 mx-auto">
-        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full gap-3 ">
+        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full gap-3 pt-5">
           <div className="md:col-span-1 lg:col-span-1 sm:max-w-[300px] place-self-center sm:place-self-start md:place-self-start sm:h-[450px] overflow-hidden  shadow-lg group ">
             <img
               src={s}
@@ -63,11 +60,12 @@ function MovieInfo(props) {
             <hr className="h-px  bg-gray-200 border-0 dark:bg-[#ff5100]/30"></hr>
           </div>
 
-          <h3>hello</h3>
+          
         </div>
 
-        
+       
       </div>
+      <h2> Helllo</h2>
     </div>
   );
 }
