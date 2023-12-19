@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Input from '../components/Input';
 import { validateForm } from "../utils/formValidate.js";
 import MoviePoster from '../components/MoviePoster';
+import {Form , json , useActionData , useNavigation } from 'react-router-dom'
 
 // import {Facebook,GitHub,Google} from '@mui/material/Icon';
 
@@ -33,7 +34,7 @@ function SignUp(props) {
         {
             id: "email",
             name: "email",
-            type: "email",
+            type: "",
             placeholder: "Email",
             validate: ["isNotEmpty", "isEmail"],
             isValidated: false,
@@ -43,7 +44,7 @@ function SignUp(props) {
         {
             id: "password",
             name: "password",
-            type: "text",
+            type: "password",
             placeholder: "Password",
             validate: ["isNotEmpty"],
             isValidated: false,
@@ -52,22 +53,34 @@ function SignUp(props) {
         },
     ]);
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
+    const data = useActionData();
+    const navigation = useNavigation();
+    const isSigningUp = navigation.state === 'submitting';
 
-        setForm(
-            form.map(eachForm => {
-                const formStatus = validateForm(
-                    formData.get(eachForm.name),
-                    eachForm.validate,
-                    eachForm.errorFormName
-                );
-                eachForm.isValidated = !formStatus.isPass;
-                eachForm.error = formStatus.message;
-                return eachForm;
-            })
-        );
+    // function handleSubmit(event) {
+    //     event.preventDefault();
+    //     const formData = new FormData(event.target);
+
+    //     setForm(
+    //         form.map(eachForm => {
+    //             const formStatus = validateForm(
+    //                 formData.get(eachForm.name),
+    //                 eachForm.validate,
+    //                 eachForm.errorFormName
+    //             );
+    //             eachForm.isValidated = !formStatus.isPass;
+    //             eachForm.error = formStatus.message;
+    //             return eachForm;
+    //         })
+    //     );
+    // }
+
+    console.log('data');
+    console.log(data);
+    if(data)
+    {
+        console.log('data err');
+        console.log(data.error);
     }
 
     return (
@@ -92,17 +105,23 @@ function SignUp(props) {
                         <div className="px-3 w-full lg:w-1/2 flex items-center">
                             <div className="space-y-8 w-full">
                             
-                                <form
+                                <Form method='post'
                                     className="bg-white rounded-lg shadow-hard-gray"
-                                    onSubmit={handleSubmit}
+                                    
                                 >
+                                    
                                     <div className="p-8 text-sm space-y-6">
+                                    {data && data.errors && <ul>
+                                        {Object.values(data.error).map(err => <li key={err}>{err}</li>)}
+                                        </ul>}
+                                    {data && data.error.message && <p className='text-center text-red-600'>{data.error.message}</p>}
                                         {form.map((_form, _index) => {
                                             return (
                                                 <Input
                                                     key={`form-${_index}`}
                                                     id={_form.id}
                                                     name={_form.name}
+                                                    type={_form.type}
                                                     placeholder={
                                                         _form.placeholder
                                                     }
@@ -115,9 +134,9 @@ function SignUp(props) {
                                         })}
                                         <button
                                             
-                                            
+                                            disabled={isSigningUp}
                                             className="bg-[#ff5100] hover:bg-[#c63600]  font-semibold text-white py-4 px-3 rounded-lg text-center w-full uppercase border-b-[6px] border-primary-green-600"
-                                        >Sign Up</button>
+                                        >{isSigningUp ?'Signing Up' :'Sign Up'}</button>
                                         <p className="text-center text-neutral-grayish-blue-500 text-[12px]">
                                             By clicking the button, you are
                                             agreeing to our
@@ -132,7 +151,7 @@ function SignUp(props) {
                                             </a>
                                         </p>
                                     </div>
-                                </form>
+                                </Form>
                             </div>
                         </div>
                     </div>
@@ -145,3 +164,41 @@ function SignUp(props) {
 }
 
 export default SignUp;
+
+export async function action({request ,params}){
+    const data = await request.formData();
+
+    const userData = {
+        firstName : data.get('first-name'),
+        lastName : data.get('last-name'),
+        email : data.get('email'),
+        password : data.get('password')
+    }
+
+    console.log(userData);
+
+    const res =await fetch("http://localhost:5000/users/register" , {
+        method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(userData)
+    })
+
+    if(res.status === 422 || res.status === 401 || res.status === 409  )
+    {
+        return res;
+    }
+
+    if(!res.ok)
+    {
+        throw json({message : 'Could not Sign Up user'}, {status : 500})
+    }
+
+    // const resData = await res.json();
+
+
+    // console.log(resData);
+
+    return null
+}
