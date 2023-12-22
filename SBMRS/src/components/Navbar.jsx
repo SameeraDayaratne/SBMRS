@@ -54,10 +54,10 @@ function Navbar(props) {
                 <li className='p-4'><button onClick={handleSignUp} className='bg-[#ff5100]  rounded-md py-1 w-[80px]   hover:bg-[#c63600]'>Sign Up</button></li>
             </ul>
             <div onClick={handleNav} className='block md:hidden'>
-                {!nav ? <AiOutlineClose size={20}  /> : <AiOutlineMenu size={20} />}
+                {nav ? <AiOutlineClose size={20}  /> : <AiOutlineMenu size={20} />}
                 
             </div>
-            <div className={!nav ? 'fixed left-0 top-0 w-[60%] border-r h-full bg-[#000300] border-r-gray-900 ease-in-out duration-500 md:hidden' : 'fixed left-[-100%]'}>
+            <div className={nav ? 'fixed left-0 top-0 w-[60%] border-r h-full bg-[#000300] border-r-gray-900 ease-in-out duration-500 md:hidden' : 'fixed left-[-100%]'}>
                 <h1 className='w-full text-3xl font-bold m-4'>TMRS</h1>
 
                 <ul className='uppercase'>
