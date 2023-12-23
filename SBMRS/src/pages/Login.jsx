@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/Input";
 import { validateForm } from "../utils/formValidate.js";
 import MoviePoster from "../components/MoviePoster";
@@ -40,14 +40,18 @@ function Login(props) {
 
   const isLogginIn = navigation.state == 'submitting' 
 
+  useEffect(()=> {
+    if(data && data.success){
+        dispatch(signInSuccess(data.user));
+        navigate('/');
+    }
+    else if(data && data.error){
+        dispatch(signInFaliure(data.error))
+    }
 
-  if(data && data.success){
-      dispatch(signInSuccess(data.user));
-      navigate('/');
-  }
-  else if(data && data.error){
-      dispatch(signInFaliure(data.error))
-  }
+  }, [data , dispatch , navigate]);
+
+  
 
 //   function handleSubmit(event) {
 //     event.preventDefault();

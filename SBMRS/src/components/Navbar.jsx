@@ -14,10 +14,13 @@ function Navbar(props) {
 
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
-    console.log('user is');
-console.log(user);
+
     function handleSignUp(){
         navigate('signup');
+    }
+
+    function handleLogOut() {
+        
     }
 
     function setNavFixed(){
@@ -49,13 +52,13 @@ console.log(user);
         <div className={navClass}>
             <h1 className='w-full text-3xl font-bold text-[#ff5100] '>TMRS</h1>
             <ul className=' hidden md:flex md:items-center'>
-             {user && <li className={liClass}><p> {user.currentUser.email} </p></li> }   
+             {user.currentUser &&  <li className={liClass}><p> {user.currentUser.email} </p></li> }   
             <li className={liClass}><NavLink to='/' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Home</NavLink></li> 
                 <li className={liClass}><NavLink to='/movies' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Movies</NavLink></li>        
-                {!user && <li className={liClass}><NavLink to='/login' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Login</NavLink></li>}
+                {!user.currentUser && <li className={liClass}><NavLink to='/login' className={({isActive}) => (isActive ? 'text-[#ff5100]' : 'hover:text-gray-300')} >Login</NavLink></li>}
                 
                 {/* <li className={liClass}>Login</li> */}
-                {user ? <li className='p-4'><button onClick={handleSignUp} className='bg-[#ff5100]  rounded-md py-1 w-[80px]   hover:bg-[#c63600]'>Log Out</button></li> : <li className='p-4'><button onClick={handleSignUp} className='bg-[#ff5100]  rounded-md py-1 w-[80px]   hover:bg-[#c63600]'>Sign Up</button></li>}
+                {user.currentUser ? <li className='p-4'><button onClick={handleLogOut} className='bg-[#ff5100]  rounded-md py-1 w-[80px]   hover:bg-[#c63600]'>Log Out</button></li> : <li className='p-4'><button onClick={handleSignUp} className='bg-[#ff5100]  rounded-md py-1 w-[80px]   hover:bg-[#c63600]'>Sign Up</button></li>}
                 
             </ul>
             <div onClick={handleNav} className='block md:hidden'>

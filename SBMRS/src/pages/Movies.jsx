@@ -1,31 +1,35 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { getAccessToken } from '../utils/auth';
+import movies from '../api/movies.js';
+import jwtInterceptor from '../api/jwtInterceptor.js';
+
 
 function Movies(props) {
+
+    const [data , setData] = useState('')
 
     useEffect(()=>{
         async function getMovies(){
 
             const accessToken = getAccessToken();
+            
 
             try {
-            const response = await fetch("http://localhost:8000/movies" , {
+            const response = await jwtInterceptor.get("http://localhost:8000/movies" , {
                 headers : {
-                    'authorization' : 'Bearer ' + accessToken
+                    Authorization : `Bearer ${accessToken}` 
                 }
             });
-            const resData = await response.json();
             
-            if(!response.ok)
-            {
-                throw new Error();
-            }
-
-            console.log(resData);
+            
+            setData(response.data.message)
+            console.log('in movies route');
+            console.log(response);
             } catch (error) {
-                console.log(error.message);
+                //logout the user due to refresh token expiration
+                console.log(error);
             }
             
         }
@@ -35,7 +39,7 @@ function Movies(props) {
 
     return (
         <div>
-            <h2 className='text-white'>movies</h2>
+            <h2 className='text-white'>{data}</h2>
         </div>
     );
 }
