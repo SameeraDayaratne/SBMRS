@@ -5,6 +5,8 @@ import { validateForm } from "../utils/formValidate.js";
 import MoviePoster from "../components/MoviePoster";
 import { Form, useActionData , useNavigation , redirect} from "react-router-dom";
 import auth from "../api/auth.js";
+import {useDispatch} from 'react-redux'
+import {signInSuccess ,signInFaliure} from '../redux/user/userSlice.js'
 // import {Facebook,GitHub,Google} from '@mui/material/Icon';
 
 function Login(props) {
@@ -33,26 +35,35 @@ function Login(props) {
 
   const data = useActionData();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const isLogginIn = navigation.state == 'submitting' 
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
 
-    setForm(
-      form.map((eachForm) => {
-        const formStatus = validateForm(
-          formData.get(eachForm.name),
-          eachForm.validate,
-          eachForm.errorFormName
-        );
-        eachForm.isValidated = !formStatus.isPass;
-        eachForm.error = formStatus.message;
-        return eachForm;
-      })
-    );
+  if(data && data.success){
+      dispatch(signInSuccess(data.user));
   }
+  else if(data && data.error){
+      dispatch(signInFaliure(data.error))
+  }
+
+//   function handleSubmit(event) {
+//     event.preventDefault();
+//     const formData = new FormData(event.target);
+
+//     setForm(
+//       form.map((eachForm) => {
+//         const formStatus = validateForm(
+//           formData.get(eachForm.name),
+//           eachForm.validate,
+//           eachForm.errorFormName
+//         );
+//         eachForm.isValidated = !formStatus.isPass;
+//         eachForm.error = formStatus.message;
+//         return eachForm;
+//       })
+//     );
+//   }
 
   return (
     <div className="App">
@@ -79,14 +90,14 @@ function Login(props) {
                   method="post"
                 >
                   <div className="p-8 text-sm space-y-6">
-                    {data && data.errors && (
+                    {data && !data.success && data.errors && (
                       <ul>
                         {Object.values(data.error).map((err) => (
                           <li key={err}>{err}</li>
                         ))}
                       </ul>
                     )}
-                    {data && data.error.message && (
+                    {data && !data.success && data.error.message && (
                       <p className="text-center text-red-600">
                         {data.error.message}
                       </p>
@@ -144,7 +155,11 @@ export async function action({ request, params }) {
     let responseOK = response && response.status === 200 && response.statusText === "OK";
     if(responseOK)
     {
-        return redirect('/');
+        const accessToken =  response.data.accessToken;
+        localStorage.setItem('accessToken' , accessToken);
+        // console.log(response.data);
+        return response.data;
+        // return redirect('/');
     }
   } catch (error) {
     if (error.response) {
@@ -167,7 +182,6 @@ export async function action({ request, params }) {
     }
   }
 
-  console.log(user);
 
-  return null;
+
 }
