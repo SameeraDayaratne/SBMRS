@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Input from "../components/Input";
 import { validateForm } from "../utils/formValidate.js";
 import MoviePoster from "../components/MoviePoster";
-import { Form, useActionData , useNavigation , redirect} from "react-router-dom";
+import { Form, useActionData , useNavigation , redirect , useNavigate} from "react-router-dom";
 import auth from "../api/auth.js";
 import {useDispatch} from 'react-redux'
 import {signInSuccess ,signInFaliure} from '../redux/user/userSlice.js'
@@ -36,12 +36,14 @@ function Login(props) {
   const data = useActionData();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isLogginIn = navigation.state == 'submitting' 
 
 
   if(data && data.success){
       dispatch(signInSuccess(data.user));
+      navigate('/');
   }
   else if(data && data.error){
       dispatch(signInFaliure(data.error))
