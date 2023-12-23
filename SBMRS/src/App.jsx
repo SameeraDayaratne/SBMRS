@@ -7,8 +7,8 @@ import Movies from "./pages/Movies";
 import Navbar from "./components/Navbar";
 import TV from "./pages/TV";
 import MovieDetails from "./pages/MovieDetails";
-import SignUp , {action as handleSignUp} from "./pages/SignUp";
-import Login from "./pages/Login";
+import SignUp , {action, action as handleSignUp} from "./pages/SignUp";
+import Login , {action as handleLogin} from "./pages/Login";
 
 const router = createBrowserRouter([
   {path: '/' ,
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     {path: '/tv' , element : <TV />},
     {path: '/movies/id' , element : <MovieDetails />},
     {path: '/signup' , element : <SignUp />,action : handleSignUp },
-    {path: '/login' , element : <Login />},
+    {path: '/login' , element : <Login />, action:handleLogin},
    ]
   }
  
