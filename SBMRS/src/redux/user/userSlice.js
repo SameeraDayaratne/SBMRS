@@ -15,10 +15,14 @@ const userSlice = createSlice({
         },
         signInFaliure : (state, action) => {
             state.error = action.payload;
+        },
+        logOutSuccess : (state) => {
+            state.currentUser = null,
+            state.error = null
         }
     }
 });
 
-export const { signInFaliure , signInSuccess} = userSlice.actions;
+export const { signInFaliure , signInSuccess , logOutSuccess} = userSlice.actions;
 
 export default userSlice.reducer;

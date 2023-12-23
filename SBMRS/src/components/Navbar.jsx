@@ -3,7 +3,11 @@ import React from 'react';
 import { useState } from 'react';
 import { AiOutlineClose , AiOutlineMenu } from 'react-icons/ai'
 import { Outlet , NavLink ,useNavigate} from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector ,useDispatch } from 'react-redux';
+import { logOutSuccess } from '../redux/user/userSlice.js';
+import auth from '../api/auth.js';
+// import { cookies } from 'react-cookie'
+
 
 
 
@@ -14,13 +18,34 @@ function Navbar(props) {
 
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     function handleSignUp(){
         navigate('signup');
     }
 
-    function handleLogOut() {
-        
+    async function handleLogOut() {
+
+         try {
+            const response = await auth.delete('/logout' , {withCredentials : true})
+
+            if(response.status === 204)
+            {
+                localStorage.removeItem('accessToken');
+                // cookies.remove('jwt');
+                dispatch(logOutSuccess());
+                navigate('/');
+
+            }
+         } catch (error) {
+            
+            console.log(error);
+            localStorage.removeItem('accessToken');
+                // cookies.remove('jwt');
+                dispatch(logOutSuccess());
+                navigate('/');
+         }
+
     }
 
     function setNavFixed(){
